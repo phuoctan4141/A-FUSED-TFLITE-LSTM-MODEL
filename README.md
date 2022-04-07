@@ -6,7 +6,7 @@ Minium Android 5.0
 
 ## Exporting the model
 
-```
+```python
 run_model = tf.function(lambda x: model(x))
 # This is important, let's fix the input size.
 BATCH_SIZE = 1
@@ -27,7 +27,7 @@ tflite_model = converter.convert()
 
 Adding metadata to help us using model with class labels and descriptions of inputs/outputs. More [https://www.tensorflow.org/lite/convert/metadata]
 
-```
+```python
 from tflite_support import flatbuffers
 from tflite_support import metadata as _metadata
 from tflite_support import metadata_schema_py_generated as _metadata_fb
@@ -46,7 +46,7 @@ model_meta.license = ("Apache License. Version 2.0 "
                       "http://www.apache.org/licenses/LICENSE-2.0.")
 ```
 
-```
+```python
 # Creates input info.
 input_meta = _metadata_fb.TensorMetadataT()
 
@@ -57,13 +57,13 @@ input_stats = _metadata_fb.StatsT()
 input_meta.stats = input_stats
 ```
 
-```
+```python
 labelmap_file = '/content/labelmap.txt'
 
 export_model_path = '/content/model_LSTM_Metadata.tflite'
 ```
 
-```
+```python
 import os
 # Creates output info.
 output_meta = _metadata_fb.TensorMetadataT()
@@ -81,7 +81,7 @@ label_file.type = _metadata_fb.AssociatedFileType.TENSOR_AXIS_LABELS
 output_meta.associatedFiles = [label_file]
 ```
 
-```
+```python
 # Creates subgraph info.
 subgraph = _metadata_fb.SubGraphMetadataT()
 subgraph.inputTensorMetadata = [input_meta]
@@ -95,7 +95,7 @@ b.Finish(
 metadata_buf = b.Output()
 ```
 
-```
+```python
 # Pack metadata and associated files into the model
 populator = _metadata.MetadataPopulator.with_model_file(export_model_path)
 populator.load_metadata_buffer(metadata_buf)
