@@ -33,7 +33,7 @@ from tflite_support import metadata as _metadata
 from tflite_support import metadata_schema_py_generated as _metadata_fb
 ```
 
-```
+```python
 # Creates model info.
 model_meta = _metadata_fb.ModelMetadataT()
 model_meta.name = "Human Activity Recognition"
